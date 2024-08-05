@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="images/png"  href="favicon.png">
     <title>Resell Übersicht</title>
     <style>
         body {
@@ -395,7 +396,7 @@
                         ${sold ? `<p><strong>Verkaufspreis:</strong> €${sold}</p><p><strong>Gewinn:</strong> €${sold - purchased}</p><p><strong>Marge:</strong> ${(((sold - purchased) / purchased) * 100).toFixed(2)}%</p>` : ''}
                     </div>
                     <div class="resell-image">
-                        <img src="https://via.placeholder.com/100" alt="${name}">
+                        <img src="product.jpg" alt="${name}">
                     </div>
                     <div class="resell-options">⋮</div>
                     <div class="options-menu">
