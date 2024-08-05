@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="images/png"  href="favicon.png">
+    <link rel="icon" type="images/png" href="favicon.png">
     <title>Resell Übersicht</title>
     <style>
         body {
@@ -34,7 +34,6 @@
             background: #bdbdbd74;
             border: none;
             border-radius: 50px;
-            padding: 5px 5px;
             transform: scale(1.1);
         }
 
@@ -58,7 +57,7 @@
         }
 
         .menu-content a:hover {
-            background-color: darkgoldenrod;
+            background-color: rgb(227, 175, 45);
             color: white;
         }
 
@@ -75,9 +74,16 @@
             cursor: pointer;
         }
 
+        .tab:hover {
+            background-color: #9390901e;
+            border: none;
+            border-radius: 9px;
+        }
+
         .tab.active {
-            border-bottom: 2px solid blue;
-            color: blue;
+            border-bottom: 2px solid rgb(255, 204, 2);
+            color: rgb(255, 204, 0);
+            text-shadow: 10px rgba(31, 30, 30, 0.5);
             transform: scale(1.1);
         }
 
@@ -88,6 +94,9 @@
         #add-resell {
             display: none;
             margin-bottom: 1rem;
+            width: 80%;
+            align-items: center;
+            padding: 0 30px;
         }
 
         #add-resell form {
@@ -133,11 +142,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 80%;
         }
 
         .resell-item p {
             margin: 0.5rem 0;
-           
         }
 
         .resell-item a {
@@ -150,10 +159,18 @@
         }
 
         .resell-details {
-            
             padding: 5px;
             display: flex;
             flex-direction: column;
+        }
+
+        .resell-details .zahl {
+            text-shadow: 4px rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 4px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            padding: 4px;
         }
 
         .resell-image img {
@@ -163,17 +180,47 @@
 
         .resell-item span.green {
             color: green;
-            text-shadow: 4px rgba(0, 0, 0, 0.2);
+            border: none;
+            border-radius: 4px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            padding: 4px;
         }
 
         .resell-item span.red {
             color: red;
-            text-shadow: 4px rgba(0, 0, 0, 0.2);
+            
+            border: none;
+            border-radius: 4px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            padding: 4px;
         }
 
         .resell-item span.yellow {
             color: rgb(248, 200, 41);
-            text-shadow: 4px rgba(0, 0, 0, 0.2);
+
+            border: none;
+            border-radius: 4px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            padding: 4px;
+        }
+
+        .zahl-red {
+            color: red;
+            
+        }
+
+        .zahl-darkgreen {
+            color: darkgreen;
+            
+        }
+
+        .zahl-lightgreen {
+            color: lightgreen;
+           
+            
         }
 
         .resell-options {
@@ -204,7 +251,7 @@
         }
 
         .options-menu a:hover {
-            background-color: rgb(248, 200, 41);
+            background-color: rgb(255, 211, 66);
             color: white;
         }
 
@@ -243,13 +290,13 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             color: white;
             border: none;
-            padding: 10px;
-            cursor: pointer;
             border-radius: 6px;
+            padding: 10px 20px;
+            cursor: pointer;
         }
 
         .modal-content button:hover {
-            background-color: rgb(248, 200, 41);
+            background-color: rgb(243, 183, 33);
         }
 
         .close {
@@ -260,270 +307,184 @@
             cursor: pointer;
         }
 
-        .close:hover, .close:focus {
+        .close:hover,
+        .close:focus {
             color: black;
-            text-decoration: none;
-            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="menu-icon">☰</div>
+        <div class="menu-icon">&#9776;</div>
         <h1>Resell Übersicht</h1>
         <div class="plus-icon">+</div>
     </header>
-
     <div class="menu-content">
-        <a href="#">Option 1</a>
-        <a href="#">Option 2</a>
-        <a href="#">Option 3</a>
+        <a href="#add-resell">Resell hinzufügen</a>
+        <a href="#GEPLANT">Geplante Resells</a>
+        <a href="#OFFEN">Offene Resells</a>
+        <a href="#ABGESCHLOSSEN">Abgeschlossene Resells</a>
     </div>
-
     <div class="tabs">
-        <div class="tab active" data-tab="planned">GEPLANT</div>
-        <div class="tab" data-tab="open">OFFEN</div>
-        <div class="tab" data-tab="completed">ABGESCHLOSSEN</div>
+        <div class="tab active" data-tab="GEPLANT">GEPLANT</div>
+        <div class="tab" data-tab="OFFEN">OFFEN</div>
+        <div class="tab" data-tab="ABGESCHLOSSEN">ABGESCHLOSSEN</div>
     </div>
-
     <main>
-        <section id="resell-list-planned" data-tab-content="planned">
-            <!-- Hier werden die geplanten Resells angezeigt -->
-        </section>
-        <section id="resell-list-open" class="hidden" data-tab-content="open">
-            <!-- Hier werden die offenen Resells angezeigt -->
-        </section>
-        <section id="resell-list-completed" class="hidden" data-tab-content="completed">
-            <!-- Hier werden die abgeschlossenen Resells angezeigt -->
-        </section>
         <section id="add-resell">
-            <form id="resell-form">
-                <label for="product-link">Produkt Link</label>
-                <input type="text" id="product-link" name="product-link" required>
-                
-                <label for="product-name">Produkt Name</label>
-                <input type="text" id="product-name" name="product-name" required>
-                
-                <label for="retail-price">Retail Preis</label>
-                <input type="number" id="retail-price" name="retail-price" required>
-                
-                <label for="estimated-resell">Geschätzter Resell</label>
-                <input type="number" id="estimated-resell" name="estimated-resell" required>
-                
-                <label for="platform">Erwerbe Plattform</label>
-                <input type="text" id="platform" name="platform" required>
-                
+            <form>
+                <label for="productName">Produktname:</label>
+                <input type="text" id="productName" name="productName">
+                <label for="purchasePrice">Einkaufspreis (geschätzt):</label>
+                <input type="number" id="purchasePrice" name="purchasePrice">
+                <label for="sellingPrice">Verkaufspreis (geschätzt): </label>
+                <input type="number" id="sellingPrice" name="sellingPrice">
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="GEPLANT">GEPLANT</option>
+                    <option value="OFFEN">OFFEN</option>
+                    <option value="ABGESCHLOSSEN">ABGESCHLOSSEN</option>
+                </select>
                 <button type="submit">Hinzufügen</button>
             </form>
         </section>
+        <section id="GEPLANT" class="resell-section active">
+            <!-- Hier werden geplante Resells angezeigt -->
+        </section>
+        <section id="OFFEN" class="resell-section">
+            <!-- Hier werden offene Resells angezeigt -->
+        </section>
+        <section id="ABGESCHLOSSEN" class="resell-section">
+            <!-- Hier werden abgeschlossene Resells angezeigt -->
+        </section>
     </main>
 
-    <div id="modal" class="modal">
+    <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <label for="modal-input">Betrag</label>
-            <input type="number" id="modal-input" required>
-            <button id="modal-button">Speichern</button>
+            <form id="editForm">
+                <label for="editProductName">Produktname:</label>
+                <input type="text" id="editProductName" name="productName">
+                <label for="editPurchasePrice">Einkaufspreis (geschätzt):</label>
+                <input type="number" id="editPurchasePrice" name="purchasePrice">
+                <label for="editSellingPrice">Verkaufspreis (geschätzt):</label>
+                <input type="number" id="editSellingPrice" name="sellingPrice">
+                <label for="editStatus">Status:</label>
+                <select id="editStatus" name="status">
+                    <option value="GEPLANT">GEPLANT</option>
+                    <option value="OFFEN">OFFEN</option>
+                    <option value="ABGESCHLOSSEN">ABGESCHLOSSEN</option>
+                </select>
+                <button type="submit">Speichern</button>
+            </form>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const tabs = document.querySelectorAll('.tab');
-            const tabContents = document.querySelectorAll('[data-tab-content]');
-            const plusIcon = document.querySelector('.plus-icon');
-            const addResellSection = document.getElementById('add-resell');
-            const resellForm = document.getElementById('resell-form');
-            const plannedResellList = document.getElementById('resell-list-planned');
-            const openResellList = document.getElementById('resell-list-open');
-            const completedResellList = document.getElementById('resell-list-completed');
-            const modal = document.getElementById('modal');
-            const modalInput = document.getElementById('modal-input');
-            const modalButton = document.getElementById('modal-button');
-            const closeModal = document.querySelector('.close');
-            const menuIcon = document.querySelector('.menu-icon');
-            const menuContent = document.querySelector('.menu-content');
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuIcon = document.querySelector(".menu-icon");
+            const plusIcon = document.querySelector(".plus-icon");
+            const menuContent = document.querySelector(".menu-content");
+            const addResellForm = document.querySelector("#add-resell form");
+            const addResellSection = document.querySelector("#add-resell");
+            const tabs = document.querySelectorAll(".tab");
+            const sections = document.querySelectorAll("main section");
+            const editModal = document.getElementById("editModal");
+            const closeModal = document.querySelector(".close");
+            const editForm = document.getElementById("editForm");
 
-            let activeTab = 'planned';
-            let currentEditingResell = null;
+            let resells = [];
+
+            menuIcon.addEventListener("click", function() {
+                menuContent.style.display = menuContent.style.display === "block" ? "none" : "block";
+            });
+
+            plusIcon.addEventListener("click", function() {
+                addResellSection.style.display = addResellSection.style.display === "block" ? "none" : "block";
+            });
 
             tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    activeTab = tab.getAttribute('data-tab');
-
-                    tabContents.forEach(content => {
-                        content.classList.add('hidden');
-                        if (content.getAttribute('data-tab-content') === activeTab) {
-                            content.classList.remove('hidden');
-                        }
+                tab.addEventListener("click", function() {
+                    tabs.forEach(t => t.classList.remove("active"));
+                    tab.classList.add("active");
+                    const target = tab.getAttribute("data-tab");
+                    sections.forEach(section => {
+                        section.style.display = section.id === target ? "block" : "none";
                     });
                 });
             });
 
-            plusIcon.addEventListener('click', () => {
-                addResellSection.style.display = addResellSection.style.display === 'none' ? 'block' : 'none';
-            });
-
-            resellForm.addEventListener('submit', (event) => {
+            addResellForm.addEventListener("submit", function(event) {
                 event.preventDefault();
-                const productLink = event.target['product-link'].value;
-                const productName = event.target['product-name'].value;
-                const retailPrice = event.target['retail-price'].value;
-                const estimatedResell = event.target['estimated-resell'].value;
-                const platform = event.target['platform'].value;
-
-                addResellToList(productLink, productName, retailPrice, estimatedResell, platform, activeTab);
-                saveResell(productLink, productName, retailPrice, estimatedResell, platform, activeTab);
-
-                resellForm.reset();
-                addResellSection.style.display = 'none';
+                const newResell = {
+                    id: Date.now(),
+                    productName: addResellForm.productName.value,
+                    purchasePrice: parseFloat(addResellForm.purchasePrice.value),
+                    sellingPrice: parseFloat(addResellForm.sellingPrice.value),
+                    status: addResellForm.status.value,
+                };
+                resells.push(newResell);
+                renderResells();
+                addResellForm.reset();
+                addResellSection.style.display = "none";
             });
 
-            function addResellToList(link, name, retail, estimated, platform, tab, purchased = null, sold = null) {
-                const resellItem = document.createElement('div');
-                resellItem.className = 'resell-item';
-                resellItem.innerHTML = `
-                    <div class="resell-details">
-                        <p><strong>${name}</strong></p>
-                        <p><strong>Link:</strong> <a href="${link}" target="_blank">${link}</a></p>
-                        <p><strong>Retail Preis:</strong> €${retail}</p>
-                        <p><strong>Geschätzter Resell:</strong> €${estimated}</p>
-                        <p><strong>Erwerbe Plattform:</strong> ${platform}</p>
-                        <p><strong>Status:</strong> <span class="${getStatusClass(tab)}">${tab.charAt(0).toUpperCase() + tab.slice(1)}</span></p>
-                        ${purchased ? `<p><strong>Erworbener Preis:</strong> €${purchased}</p>` : ''}
-                        ${sold ? `<p><strong>Verkaufspreis:</strong> €${sold}</p><p><strong>Gewinn:</strong> €${sold - purchased}</p><p><strong>Marge:</strong> ${(((sold - purchased) / purchased) * 100).toFixed(2)}%</p>` : ''}
-                    </div>
-                    <div class="resell-image">
-                        <img src="product.jpg" alt="${name}">
-                    </div>
-                    <div class="resell-options">⋮</div>
-                    <div class="options-menu">
-                        <a href="#" class="edit-option">Bearbeiten</a>
-                        <a href="#" class="delete-option">Löschen</a>
-                        <a href="#" class="convert-option">Konvertieren</a>
-                    </div>
-                `;
-
-                const options = resellItem.querySelector('.resell-options');
-                const optionsMenu = resellItem.querySelector('.options-menu');
-
-                options.addEventListener('click', (event) => {
-                    event.stopPropagation();
-                    optionsMenu.style.display = optionsMenu.style.display === 'block' ? 'none' : 'block';
+            function renderResells() {
+                sections.forEach(section => {
+                    section.innerHTML = "";
                 });
 
-                resellItem.querySelector('.edit-option').addEventListener('click', () => {
-                    editResell(resellItem, tab);
-                    optionsMenu.style.display = 'none';
-                });
-
-                resellItem.querySelector('.delete-option').addEventListener('click', () => {
-                    deleteResell(resellItem, link, tab);
-                    optionsMenu.style.display = 'none';
-                });
-
-                resellItem.querySelector('.convert-option').addEventListener('click', () => {
-                    convertResell(resellItem, tab);
-                    optionsMenu.style.display = 'none';
-                });
-
-                if (tab === 'planned') {
-                    plannedResellList.appendChild(resellItem);
-                } else if (tab === 'open') {
-                    openResellList.appendChild(resellItem);
-                } else if (tab === 'completed') {
-                    completedResellList.appendChild(resellItem);
-                }
-            }
-
-            function saveResell(link, name, retail, estimated, platform, tab) {
-                let resells = JSON.parse(localStorage.getItem('resells')) || [];
-                resells.push({ link, name, retail, estimated, platform, tab });
-                localStorage.setItem('resells', JSON.stringify(resells));
-            }
-
-            function loadResells() {
-                let resells = JSON.parse(localStorage.getItem('resells')) || [];
                 resells.forEach(resell => {
-                    addResellToList(resell.link, resell.name, resell.retail, resell.estimated, resell.platform, resell.tab);
+                    const resellItem = document.createElement("div");
+                    resellItem.className = "resell-item";
+                    resellItem.innerHTML = `
+                        <div class="resell-details">
+                            <p><a href="#">${resell.productName}</a></p>
+                            <p>Einkaufspreis: <span class="zahl zahl-red">-${resell.purchasePrice.toFixed(2)}€</span></p>
+                            <p>Verkaufspreis: <span class="zahl zahl-darkgreen">${resell.sellingPrice.toFixed(2)}€</span></p>
+                            <p>Gewinn: <span class="zahl zahl-lightgreen">+${(resell.sellingPrice - resell.purchasePrice).toFixed(2)}€</span></p>
+                        </div>
+                        <div class="resell-options" data-id="${resell.id}">⚙️</div>
+                    `;
+                    document.getElementById(resell.status).appendChild(resellItem);
+
+                    const optionsIcon = resellItem.querySelector(".resell-options");
+                    optionsIcon.addEventListener("click", function() {
+                        editModal.style.display = "block";
+                        const resellId = optionsIcon.getAttribute("data-id");
+                        const currentResell = resells.find(r => r.id == resellId);
+                        editForm.productName.value = currentResell.productName;
+                        editForm.purchasePrice.value = currentResell.purchasePrice;
+                        editForm.sellingPrice.value = currentResell.sellingPrice;
+                        editForm.status.value = currentResell.status;
+                        editForm.setAttribute("data-id", resellId);
+                    });
                 });
             }
 
-            function editResell(resellItem, currentTab) {
-                // Hier können Sie die Bearbeitungslogik implementieren
-            }
-
-            function deleteResell(resellItem, link, tab) {
-                resellItem.remove();
-                let resells = JSON.parse(localStorage.getItem('resells')) || [];
-                resells = resells.filter(resell => resell.link !== link || resell.tab !== tab);
-                localStorage.setItem('resells', JSON.stringify(resells));
-            }
-
-            function convertResell(resellItem, currentTab) {
-                modal.style.display = 'block';
-                currentEditingResell = { resellItem, currentTab };
-            }
-
-            closeModal.onclick = () => {
-                modal.style.display = 'none';
-                modalInput.value = '';
-            }
-
-            window.onclick = (event) => {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
-                    modalInput.value = '';
-                }
-            }
-
-            modalButton.onclick = () => {
-                const newAmount = modalInput.value;
-                if (newAmount) {
-                    const { resellItem, currentTab } = currentEditingResell;
-                    const link = resellItem.querySelector('a').href;
-                    const name = resellItem.querySelector('strong').innerText;
-                    const retail = resellItem.querySelector('.resell-details').children[2].innerText.split('€')[1];
-                    const estimated = resellItem.querySelector('.resell-details').children[3].innerText.split('€')[1];
-                    const platform = resellItem.querySelector('.resell-details').children[4].innerText;
-
-                    resellItem.remove();
-                    deleteResell(resellItem, link, currentTab);
-
-                    if (currentTab === 'planned') {
-                        addResellToList(link, name, retail, estimated, platform, 'open', newAmount);
-                        saveResell(link, name, retail, estimated, platform, 'open');
-                    } else if (currentTab === 'open') {
-                        const purchased = resellItem.querySelector('.resell-details').children[6].innerText.split('€')[1];
-                        addResellToList(link, name, retail, estimated, platform, 'completed', purchased, newAmount);
-                        saveResell(link, name, retail, estimated, platform, 'completed');
-                    }
-                    
-                    modal.style.display = 'none';
-                    modalInput.value = '';
-                }
-            }
-
-            function getStatusClass(status) {
-                if (status === 'planned') return 'red';
-                if (status === 'open') return 'yellow';
-                if (status === 'completed') return 'green';
-            }
-
-            loadResells();
-
-            menuIcon.addEventListener('click', () => {
-                menuContent.style.display = menuContent.style.display === 'block' ? 'none' : 'block';
+            closeModal.addEventListener("click", function() {
+                editModal.style.display = "none";
             });
 
-            window.addEventListener('click', (event) => {
-                if (!event.target.matches('.menu-icon')) {
-                    if (menuContent.style.display === 'block') {
-                        menuContent.style.display = 'none';
-                    }
+            window.addEventListener("click", function(event) {
+                if (event.target == editModal) {
+                    editModal.style.display = "none";
                 }
+            });
+
+            editForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+                const resellId = editForm.getAttribute("data-id");
+                const updatedResell = {
+                    id: parseInt(resellId),
+                    productName: editForm.productName.value,
+                    purchasePrice: parseFloat(editForm.purchasePrice.value),
+                    sellingPrice: parseFloat(editForm.sellingPrice.value),
+                    status: editForm.status.value,
+                };
+                resells = resells.map(r => r.id === parseInt(resellId) ? updatedResell : r);
+                renderResells();
+                editModal.style.display = "none";
             });
         });
     </script>
