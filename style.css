@@ -1,0 +1,148 @@
+/* Allgemeine Stile für das gesamte Dokument */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container für die gesamte Seite */
+.container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 800px;
+    width: 100%;
+    margin: 20px;
+}
+
+/* Überschrift */
+h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+/* Button zum Hinzufügen neuer Cards */
+#addCard {
+    display: block;
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#addCard:hover {
+    background-color: #0056b3;
+}
+
+/* Styles für die einzelnen Cards */
+.card {
+    background-color: #f0f0f0;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Überschrift der Card */
+.card h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Input-Felder innerhalb der Cards */
+.card input, .card select {
+    width: calc(100% - 16px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* Status- und Delete-Button in der Card */
+.card-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status {
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.status option #confirmed{
+    .h2e{
+       border: 2px solid green;
+       border-radius: 6px;
+       padding: 4px 4px;
+    }
+}
+
+.delete-card {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #dc3545;
+}
+
+/* Speichern-Button in der Card */
+.save-button {
+    display: block;
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+    background-color: #218838;
+}
+
+/* Medienabfragen für mobile Geräte */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    #addCard, .save-button {
+        padding: 12px;
+    }
+}

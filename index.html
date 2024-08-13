@@ -1,495 +1,209 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="images/png" href="favicon.png">
-    <title>Resell Übersicht</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: white;
-            color: black;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.4);
-        }
-
-        .menu-icon, .plus-icon {
-            cursor: pointer;
-            font-size: 2.2rem;
-            padding: 0.5rem;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .menu-icon:hover, .plus-icon:hover {
-            background: #bdbdbd74;
-            border: none;
-            border-radius: 50px;
-            transform: scale(1.1);
-        }
-
-        .menu-content {
-            display: none;
-            position: absolute;
-            top: 3.5rem;
-            left: 1rem;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-
-        .menu-content a {
-            display: block;
-            padding: 1rem;
-            color: black;
-            text-decoration: none;
-        }
-
-        .menu-content a:hover {
-            background-color: rgb(227, 175, 45);
-            color: white;
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: space-around;
-            margin: 1rem 0;
-            border-bottom: 2px solid #ccc;
-            transition: border-bottom 0.3s ease, transform 0.3s ease;
-        }
-
-        .tab {
-            padding: 1rem;
-            cursor: pointer;
-        }
-
-        .tab:hover {
-            background-color: #9390901e;
-            border: none;
-            border-radius: 9px;
-        }
-
-        .tab.active {
-            border-bottom: 2px solid rgb(255, 204, 2);
-            color: rgb(255, 204, 0);
-            text-shadow: 10px rgba(31, 30, 30, 0.5);
-            transform: scale(1.1);
-        }
-
-        main {
-            padding: 1rem;
-        }
-
-        #add-resell {
-            display: none;
-            margin-bottom: 1rem;
-            width: 80%;
-            align-items: center;
-            padding: 0 30px;
-        }
-
-        #add-resell form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        #add-resell form label {
-            margin-top: 1rem;
-            font-weight: bolder;
-        }
-
-        #add-resell form input, #add-resell form button {
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            border: 1.4px solid rgb(48, 48, 48);
-            border-radius: 6px;
-        }
-
-        #add-resell form input:focus {
-            outline: none;
-            border-color: rgb(248, 200, 41);
-        }
-
-        #add-resell form button {
-            margin-top: 20px;
-            background-color: rgb(248, 200, 41);
-            color: white;
-            cursor: pointer;
-            border: none;
-        }
-
-        #add-resell form button:hover {
-            background-color: rgb(248, 200, 41);
-        }
-
-        .resell-item {
-            border: none;
-            padding: 1rem;
-            margin-top: 1rem;
-            border-radius: 9px;
-            box-shadow: 0 8px 10px rgba(0,0,0,0.4);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 80%;
-        }
-
-        .resell-item p {
-            margin: 0.5rem 0;
-        }
-
-        .resell-item a {
-            color: rgb(248, 200, 41);
-            text-decoration: none;
-        }
-
-        .resell-item a:hover {
-            text-decoration: underline;
-        }
-
-        .resell-details {
-            padding: 5px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .resell-details .zahl {
-            text-shadow: 4px rgba(0, 0, 0, 0.5);
-            border: none;
-            border-radius: 4px;
-            background-color: #ffffff;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-            padding: 4px;
-        }
-
-        .resell-image img {
-            max-width: 100px;
-            border-radius: 6px;
-        }
-
-        .resell-item span.green {
-            color: green;
-            border: none;
-            border-radius: 4px;
-            background-color: #ffffff;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-            padding: 4px;
-        }
-
-        .resell-item span.red {
-            color: red;
-            
-            border: none;
-            border-radius: 4px;
-            background-color: #ffffff;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-            padding: 4px;
-        }
-
-        .resell-item span.yellow {
-            color: rgb(248, 200, 41);
-
-            border: none;
-            border-radius: 4px;
-            background-color: #ffffff;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-            padding: 4px;
-        }
-
-        .zahl-red {
-            color: red;
-            
-        }
-
-        .zahl-darkgreen {
-            color: darkgreen;
-            
-        }
-
-        .zahl-lightgreen {
-            color: lightgreen;
-           
-            
-        }
-
-        .resell-options {
-            cursor: pointer;
-            margin-left: 10px;
-            font-size: 1.5rem;
-        }
-
-        .resell-options:hover {
-            color: rgb(248, 200, 41);
-        }
-
-        .options-menu {
-            display: none;
-            position: absolute;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-
-        .options-menu a {
-            display: block;
-            padding: 1rem;
-            color: black;
-            text-decoration: none;
-        }
-
-        .options-menu a:hover {
-            background-color: rgb(255, 211, 66);
-            color: white;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 6px;
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-
-        .modal-content button {
-            background-color: rgb(243, 183, 33);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-
-        .modal-content button:hover {
-            background-color: rgb(243, 183, 33);
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-        }
-        h1{
-            font-size: smaller;
-        }
-    </style>
+    <title>Notiz-Website</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+<style  >
+/* Allgemeine Stile für das gesamte Dokument */
+/* Allgemeine Stile für das gesamte Dokument */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 40px;
+}
+
+/* Container für die gesamte Seite */
+.container {
+    background-color: #fff;
+    
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    max-width: 700px;
+    width: 100%;
+}
+
+header{
+    display: flex;
+}
+
+.logo{
+    margin: 10px;
+    height: 60px;
+    
+}
+/* Überschrift */
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 40px;
+    color: black;
+    
+    border-radius: 9px ;
+    background: none;
+    padding: 5px 10px;
+    max-width: 26.5%;
+    
+    display: flex;
+    border: 4px solid rgb(11, 59, 18);
+   
+}
+
+
+
+/* Button zum Hinzufügen neuer Cards */
+#addCard {
+    display: block;
+    width: 100%;
+    background: rgb(10, 53, 16);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bolder;
+    text-shadow: 5px rgba(0, 0, 0, 0.2);
+    color: white;
+    border: none;
+    border-radius: 6px;
+
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-bottom: 30px;
+    
+}
+
+#addCard:hover {
+    background: none;
+    color: black;
+    border: 1.6px solid black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    font-weight: bolder;
+    text-shadow: 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Styles für die einzelnen Cards */
+.card {
+    background-color: #fafafa;
+    border: none;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.22);
+    border-radius: 8px;
+    padding: 20px;
+    
+    margin-bottom: 40px;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Überschrift der Card */
+.card h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Input-Felder innerhalb der Cards */
+.card input, .card select {
+    width: calc(100% - 12px);
+    padding: 10px ;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+/* Status- und Delete-Button in der Card */
+.card-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status {
+    background-color: #666;
+    color: black;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 14px;
+    border: none;
+}
+
+.status .confirmed{
+   border: 2px solid green;
+   border-radius: 6px;
+}
+
+.delete-card {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #a19f9f;
+}
+
+/* Speichern-Button in der Card */
+.save-button {
+    display: block;
+    width: 100%;
+    background: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 16px;
+    
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.save-button:hover {
+    background: none;
+    color: black;
+    border: 1.5px solid black;
+}
+
+/* Medienabfragen für mobile Geräte */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    #addCard, .save-button {
+        padding: 10px;
+    }
+}
+
+
+</style>
 <body>
-    <header>
-        <div class="menu-icon">&#9776;</div>
-        <h1>Resell-Listing</h1>
-        <div class="plus-icon">+</div>
-    </header>
-    <div class="menu-content">
-        <a href="#add-resell">Resell hinzufügen</a>
-        <a href="#GEPLANT">Geplante Resells</a>
-        <a href="#OFFEN">Offene Resells</a>
-        <a href="#ABGESCHLOSSEN">Abgeschlossene Resells</a>
+    <div class="container">
+        <header>
+        <h1>Resell Overview</h1><img  class="logo" alt="logo" src="resell-logo.png" >
+        </header>
+        <button id="addCard">+ Add New Resell</button>
+        <div id="cardsContainer"></div>
     </div>
-    <div class="tabs">
-        <div class="tab active" data-tab="GEPLANT">GEPLANT</div>
-        <div class="tab" data-tab="OFFEN">OFFEN</div>
-        <div class="tab" data-tab="ABGESCHLOSSEN">ABGESCHLOSSEN</div>
-    </div>
-    <main>
-        <section id="add-resell">
-            <form>
-                <label for="productName">Produktname:</label>
-                <input type="text" id="productName" name="productName">
-                <label for="purchasePrice">Einkaufspreis (geschätzt):</label>
-                <input type="number" id="purchasePrice" name="purchasePrice">
-                <label for="sellingPrice">Verkaufspreis (geschätzt): </label>
-                <input type="number" id="sellingPrice" name="sellingPrice">
-                <label for="status">Status:</label>
-                <select id="status" name="status">
-                    <option value="GEPLANT">GEPLANT</option>
-                    <option value="OFFEN">OFFEN</option>
-                    <option value="ABGESCHLOSSEN">ABGESCHLOSSEN</option>
-                </select>
-                <button type="submit">Hinzufügen</button>
-            </form>
-        </section>
-        <section id="GEPLANT" class="resell-section active">
-            <!-- Hier werden geplante Resells angezeigt -->
-        </section>
-        <section id="OFFEN" class="resell-section">
-            <!-- Hier werden offene Resells angezeigt -->
-        </section>
-        <section id="ABGESCHLOSSEN" class="resell-section">
-            <!-- Hier werden abgeschlossene Resells angezeigt -->
-        </section>
-    </main>
-
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <form id="editForm">
-                <label for="editProductName">Produktname:</label>
-                <input type="text" id="editProductName" name="productName">
-                <label for="editPurchasePrice">Einkaufspreis (geschätzt):</label>
-                <input type="number" id="editPurchasePrice" name="purchasePrice">
-                <label for="editSellingPrice">Verkaufspreis (geschätzt):</label>
-                <input type="number" id="editSellingPrice" name="sellingPrice">
-                <label for="editStatus">Status:</label>
-                <select id="editStatus" name="status">
-                    <option value="GEPLANT">GEPLANT</option>
-                    <option value="OFFEN">OFFEN</option>
-                    <option value="ABGESCHLOSSEN">ABGESCHLOSSEN</option>
-                </select>
-                <button type="submit">Speichern</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const menuIcon = document.querySelector(".menu-icon");
-            const plusIcon = document.querySelector(".plus-icon");
-            const menuContent = document.querySelector(".menu-content");
-            const addResellForm = document.querySelector("#add-resell form");
-            const addResellSection = document.querySelector("#add-resell");
-            const tabs = document.querySelectorAll(".tab");
-            const sections = document.querySelectorAll("main section");
-            const editModal = document.getElementById("editModal");
-            const closeModal = document.querySelector(".close");
-            const editForm = document.getElementById("editForm");
-
-            let resells = [];
-
-            menuIcon.addEventListener("click", function() {
-                menuContent.style.display = menuContent.style.display === "block" ? "none" : "block";
-            });
-
-            plusIcon.addEventListener("click", function() {
-                addResellSection.style.display = addResellSection.style.display === "block" ? "none" : "block";
-            });
-
-            tabs.forEach(tab => {
-                tab.addEventListener("click", function() {
-                    tabs.forEach(t => t.classList.remove("active"));
-                    tab.classList.add("active");
-                    const target = tab.getAttribute("data-tab");
-                    sections.forEach(section => {
-                        section.style.display = section.id === target ? "block" : "none";
-                    });
-                });
-            });
-
-            addResellForm.addEventListener("submit", function(event) {
-                event.preventDefault();
-                const newResell = {
-                    id: Date.now(),
-                    productName: addResellForm.productName.value,
-                    purchasePrice: parseFloat(addResellForm.purchasePrice.value),
-                    sellingPrice: parseFloat(addResellForm.sellingPrice.value),
-                    status: addResellForm.status.value,
-                };
-                resells.push(newResell);
-                renderResells();
-                addResellForm.reset();
-                addResellSection.style.display = "none";
-            });
-
-            function renderResells() {
-                sections.forEach(section => {
-                    section.innerHTML = "";
-                });
-
-                resells.forEach(resell => {
-                    const resellItem = document.createElement("div");
-                    resellItem.className = "resell-item";
-                    resellItem.innerHTML = `
-                        <div class="resell-details">
-                            <p><a href="#">${resell.productName}</a></p>
-                            <p>Einkaufspreis: <span class="zahl zahl-red">-${resell.purchasePrice.toFixed(2)}€</span></p>
-                            <p>Verkaufspreis: <span class="zahl zahl-darkgreen">${resell.sellingPrice.toFixed(2)}€</span></p>
-                            <p>Gewinn: <span class="zahl zahl-lightgreen">+${(resell.sellingPrice - resell.purchasePrice).toFixed(2)}€</span></p>
-                        </div>
-                        <div class="resell-options" data-id="${resell.id}">⚙️</div>
-                    `;
-                    document.getElementById(resell.status).appendChild(resellItem);
-
-                    const optionsIcon = resellItem.querySelector(".resell-options");
-                    optionsIcon.addEventListener("click", function() {
-                        editModal.style.display = "block";
-                        const resellId = optionsIcon.getAttribute("data-id");
-                        const currentResell = resells.find(r => r.id == resellId);
-                        editForm.productName.value = currentResell.productName;
-                        editForm.purchasePrice.value = currentResell.purchasePrice;
-                        editForm.sellingPrice.value = currentResell.sellingPrice;
-                        editForm.status.value = currentResell.status;
-                        editForm.setAttribute("data-id", resellId);
-                    });
-                });
-            }
-
-            closeModal.addEventListener("click", function() {
-                editModal.style.display = "none";
-            });
-
-            window.addEventListener("click", function(event) {
-                if (event.target == editModal) {
-                    editModal.style.display = "none";
-                }
-            });
-
-            editForm.addEventListener("submit", function(event) {
-                event.preventDefault();
-                const resellId = editForm.getAttribute("data-id");
-                const updatedResell = {
-                    id: parseInt(resellId),
-                    productName: editForm.productName.value,
-                    purchasePrice: parseFloat(editForm.purchasePrice.value),
-                    sellingPrice: parseFloat(editForm.sellingPrice.value),
-                    status: editForm.status.value,
-                };
-                resells = resells.map(r => r.id === parseInt(resellId) ? updatedResell : r);
-                renderResells();
-                editModal.style.display = "none";
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
